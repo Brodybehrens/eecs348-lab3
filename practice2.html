@@ -1,0 +1,70 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="utf-8" />
+  <title>Practice 2 – CSS Font & Border Control</title>
+  <style>
+    body { font-family: system-ui, Arial, sans-serif; margin: 2rem; }
+    .panel {
+      display: grid;
+      gap: 12px;
+      grid-template-columns: repeat(4, 120px) 1fr;
+      align-items: end;
+      max-width: 900px;
+    }
+    label { font-size: 14px; display: block; }
+    input[type="number"] { width: 100%; }
+    #sample {
+      margin-top: 20px;
+      padding: 16px;
+      border: 4px solid #333;
+      border-radius: 12px;
+      max-width: 900px;
+    }
+    #swatch { width: 100%; height: 42px; border: 1px solid #ccc; border-radius: 8px; }
+    button { padding: 8px 14px; cursor: pointer; }
+  </style>
+</head>
+<body>
+  <h1>Practice 2 – Control Paragraph Styles</h1>
+
+  <div class="panel">
+    <div><label>R (0–255)<br><input id="r" type="number" min="0" max="255" value="0"></label></div>
+    <div><label>G (0–255)<br><input id="g" type="number" min="0" max="255" value="120"></label></div>
+    <div><label>B (0–255)<br><input id="b" type="number" min="0" max="255" value="255"></label></div>
+    <div><label>Border (px)<br><input id="bw" type="number" min="0" max="40" value="6"></label></div>
+    <div>
+      <button id="apply">Apply</button>
+      <div id="swatch" aria-label="color swatch"></div>
+    </div>
+  </div>
+
+  <p id="sample">
+    This is some dummy paragraph text. Change my text color and border color using your RGB values, and adjust my border width, too!
+  </p>
+
+  <script>
+    function clamp(n, lo, hi){ return Math.max(lo, Math.min(hi, Number(n)||0)); }
+    function rgb(r,g,b){ return `rgb(${r}, ${g}, ${b})`; }
+
+    function applyStyles(){
+      const r = clamp(document.getElementById('r').value, 0, 255);
+      const g = clamp(document.getElementById('g').value, 0, 255);
+      const b = clamp(document.getElementById('b').value, 0, 255);
+      const bw = Math.max(0, Number(document.getElementById('bw').value)||0);
+
+      const color = rgb(r,g,b);
+      const sample = document.getElementById('sample');
+      const swatch = document.getElementById('swatch');
+
+      sample.style.color = color;
+      sample.style.borderColor = color;
+      sample.style.borderWidth = bw + 'px';
+      swatch.style.background = color;
+    }
+
+    document.getElementById('apply').addEventListener('click', applyStyles);
+    applyStyles(); // initialize once
+  </script>
+</body>
+</html>

@@ -1,0 +1,49 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="utf-8" />
+  <title>Practice 3 – Password Verification</title>
+  <style>
+    body { font-family: system-ui, Arial, sans-serif; margin: 2rem; }
+    form { display: grid; gap: 12px; max-width: 420px; }
+    input { padding: 10px; }
+    button { padding: 10px 14px; cursor: pointer; }
+    small { color: #666; }
+  </style>
+</head>
+<body>
+  <h1>Practice 3 – Password Verification</h1>
+
+  <form onsubmit="checkPw(event)">
+    <label>Enter password (min 8 characters)
+      <input id="pw1" type="password" autocomplete="new-password" required>
+    </label>
+
+    <label>Re-enter password
+      <input id="pw2" type="password" autocomplete="new-password" required>
+    </label>
+
+    <button type="submit">Verify</button>
+    <small>We’ll show an alert if it’s too short or they don’t match.</small>
+  </form>
+
+  <script>
+    function checkPw(e){
+      e.preventDefault();
+
+      const a = document.getElementById('pw1').value.trim();
+      const b = document.getElementById('pw2').value.trim();
+
+      if (a.length < 8) {
+        alert('Password must be at least 8 characters long.');
+        return;
+      }
+      if (a !== b) {
+        alert('Passwords do not match.');
+        return;
+      }
+      alert('Passwords match!');
+    }
+  </script>
+</body>
+</html>
